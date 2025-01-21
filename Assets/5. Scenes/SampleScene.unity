@@ -332,7 +332,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -472,6 +472,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1744164339}
+  - component: {fileID: 1744164340}
+  - component: {fileID: 1744164341}
   - component: {fileID: 1744164338}
   m_Layer: 0
   m_Name: Board
@@ -508,6 +510,46 @@ Transform:
   - {fileID: 580358364}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1744164340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744164337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81689aa716bae8f4db247e2bc4f7b2c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tetrominoes:
+  - tetromino: 0
+    tile: {fileID: 11400000, guid: be1365e15a985c146a3b93291fe14f78, type: 2}
+  - tetromino: 1
+    tile: {fileID: 11400000, guid: c604908467f696245912a17b844554e1, type: 2}
+  - tetromino: 2
+    tile: {fileID: 11400000, guid: 612dc4597d96d13449fef35149d5d9cb, type: 2}
+  - tetromino: 3
+    tile: {fileID: 11400000, guid: 0785460fa6658dd4a92bdf40ac97bc93, type: 2}
+  - tetromino: 4
+    tile: {fileID: 11400000, guid: 9576f7b1d683b7648bc81b507f12feb4, type: 2}
+  - tetromino: 5
+    tile: {fileID: 11400000, guid: 8f612d2d24047b3459f20db6ae0b9475, type: 2}
+  - tetromino: 6
+    tile: {fileID: 11400000, guid: df8be1f6452db7f43920347e7c353ac7, type: 2}
+  spawnPosition: {x: -1, y: 8, z: 0}
+--- !u!114 &1744164341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744164337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db942813d567ddb46b8977159c5a3f56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1749235753
 GameObject:
   m_ObjectHideFlags: 0
