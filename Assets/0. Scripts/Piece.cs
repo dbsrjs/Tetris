@@ -64,9 +64,7 @@ public class Piece : MonoBehaviour
     private void HardDrop()
     {
         while (Move(Vector2Int.down))
-        {
             continue;
-        }
     }
 
     /// <summary>
@@ -84,13 +82,15 @@ public class Piece : MonoBehaviour
 
         //이동할 수 있는 자리인지 확인 후 이동
         if (valid)
-        {
             position = newPosition;
-        }
 
         return valid;
     }
 
+    /// <summary>
+    /// 회전
+    /// </summary>
+    /// <param name="direction">회전할 방향</param>
     private void Rotate(int direction)
     {
         rotationIndex = Wrap(rotationIndex + direction, 0, 4); 
@@ -128,12 +128,9 @@ public class Piece : MonoBehaviour
     private int Wrap(int input, int min, int max)
     {
         if(input < min)
-        {
             return max - (min - input) % (max - min);
-        }
+
         else
-        {
             return min + (input - min) % (max - min);
-        }
     }
 }
