@@ -9,12 +9,20 @@ public class Piece : MonoBehaviour
     public Vector3Int position { get; private set; }
     public int rotationIndex { get; private set; }
 
+    public float stepDelay = 1f;    //스탭걸리는 시간
+    public float lockDelay = 0.5f;  //락에 걸리는 시간
+
+    private float stepTime;         //다음 스탭까지의 시간
+    private float lockTime;         //다음 락까지의 시간
+
     public void Initialize(Board board, Vector3Int position, TetrominoData data)
     {
         this.board = board;
         this.position = position;
         this.data = data;
         this.rotationIndex = 0;
+        this.stepTime = Time.time + stepDelay;
+        this.lockTime = 0f;
 
         if (cells == null)
         {
@@ -30,6 +38,8 @@ public class Piece : MonoBehaviour
     private void Update()
     {
         board.Clear(this);
+
+        lockTime += Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -59,13 +69,38 @@ public class Piece : MonoBehaviour
             HardDrop();
         }
 
+        if(Time.time >= stepTime)
+        {
+            Step();
+        }
+
         board.Set(this);
+    }
+    
+    private void Step()
+    {
+        stepTime = Time.time + stepDelay;
+
+        Move(Vector2Int.down);
+
+        if(lockTime >= lockDelay)
+        {
+            Lock();
+        }
+    }
+
+    private void Lock()
+    {
+        board.Set(this);
+        board.SpawnPiece(); //새 조각 생성
     }
 
     private void HardDrop()
     {
         while (Move(Vector2Int.down))
             continue;
+
+        Lock();
     }
 
     /// <summary>
@@ -83,7 +118,11 @@ public class Piece : MonoBehaviour
 
         //이동할 수 있는 자리인지 확인 후 이동
         if (valid)
+        {
+            print("test");
             position = newPosition;
+            lockTime = 0;
+        }
 
         return valid;
     }
