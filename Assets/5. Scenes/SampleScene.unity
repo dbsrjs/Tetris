@@ -131,6 +131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 505269222}
+  - component: {fileID: 505269223}
   - component: {fileID: 505269221}
   m_Layer: 0
   m_Name: Ghost
@@ -167,6 +168,21 @@ Transform:
   - {fileID: 1749235754}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &505269223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505269220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1202ce7eb03cc064ebddf3f34548f84b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tile: {fileID: 11400000, guid: 426b83de356739a4f8ffd19072d2f95d, type: 2}
+  board: {fileID: 1744164340}
+  trackingPiece: {fileID: 1744164341}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,6 +554,7 @@ MonoBehaviour:
   - tetromino: 6
     tile: {fileID: 11400000, guid: df8be1f6452db7f43920347e7c353ac7, type: 2}
   spawnPosition: {x: -1, y: 8, z: 0}
+  boardSize: {x: 10, y: 20}
 --- !u!114 &1744164341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -550,6 +567,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db942813d567ddb46b8977159c5a3f56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stepDelay: 1
+  lockDelay: 0.5
 --- !u!1 &1749235753
 GameObject:
   m_ObjectHideFlags: 0
