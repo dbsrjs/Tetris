@@ -15,6 +15,13 @@ public class Piece : MonoBehaviour
     private float stepTime;         //다음 스탭까지의 시간
     private float lockTime;         //다음 락까지의 시간
 
+
+    /// <summary>
+    /// 초기화
+    /// </summary>
+    /// <param name="board"></param>
+    /// <param name="position"></param>
+    /// <param name="data"></param>
     public void Initialize(Board board, Vector3Int position, TetrominoData data)
     {
         this.board = board;
@@ -89,9 +96,13 @@ public class Piece : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 잠금
+    /// </summary>
     private void Lock()
     {
         board.Set(this);
+        board.ClearLines();
         board.SpawnPiece(); //새 조각 생성
     }
 

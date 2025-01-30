@@ -34,13 +34,33 @@ public class Board : MonoBehaviour
         SpawnPiece();
     }
 
+    /// <summary>
+    /// 테트라미노 생성
+    /// </summary>
     public void SpawnPiece()
     {
         int random = Random.Range(0, tetrominoes.Length);   //랜덤으로 테트라미노 선별
         TetrominoData data = tetrominoes[random];
 
         activePiece.Initialize(this, spawnPosition, data);
-        Set(activePiece);
+
+        //생성할 수 있는 위치인지 체크
+        if(IsValidPosition(activePiece, spawnPosition))
+        {
+            Set(activePiece);
+        }
+        else
+        {
+            GameOver();
+        }
+    }
+
+    /// <summary>
+    /// 게임 오버
+    /// </summary>
+    private void GameOver()
+    {
+        tilemap.ClearAllTiles();
     }
 
     public void Set(Piece piece)
@@ -67,7 +87,6 @@ public class Board : MonoBehaviour
     /// <summary>
     /// 유효한 위치인지 체크
     /// </summary>
-    /// <returns></returns>
     public bool IsValidPosition(Piece piece, Vector3Int position)
     {
         RectInt bounds = Bounds;
@@ -90,5 +109,74 @@ public class Board : MonoBehaviour
         }
 
         return true;
+    }
+
+    /// <summary>
+    /// 삭제 로직
+    /// </summary>
+    public void ClearLines()
+    {
+        RectInt bounds = Bounds;
+        int row = bounds.yMin;
+
+        while(row < bounds.yMax)
+        {
+            if(IsLineFull(row))
+            {
+                LineClear(row);
+            }
+            else
+            {
+                row++;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 줄이 가득 찼는지 체크
+    /// </summary>
+    private bool IsLineFull(int row)
+    {
+        RectInt bounds = Bounds;
+
+        for(int col = bounds.xMin; col < bounds.xMax; col++)
+        {
+            Vector3Int position = new Vector3Int(col, row, 0);
+
+            if(!tilemap.HasTile(position))  //이 줄이 가득 차지 않았다.
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /// <summary>
+    /// 줄 삭제
+    /// </summary>
+    private void LineClear(int row)
+    {
+        RectInt bounds = Bounds;
+
+        for (int col = bounds.xMin; col < bounds.xMax; col++)
+        {
+            Vector3Int position = new Vector3Int(col, row, 0);
+            tilemap.SetTile(position, null);    //타일을 null로 변경
+        }
+
+        while(row < bounds.yMax)
+        {
+            for (int col = bounds.xMin; col < bounds.xMax; col++)
+            {
+                Vector3Int position = new Vector3Int(col, row + 1, 0);
+                TileBase above = tilemap.GetTile(position);
+
+                position = new Vector3Int(col, row, 0);
+                tilemap.SetTile(position, above);
+            }
+
+            row++;
+        }
     }
 }
