@@ -42,6 +42,7 @@ public class Piece : MonoBehaviour
         }
     }
 
+
     private void Update()
     {
         board.Clear(this);
@@ -76,7 +77,12 @@ public class Piece : MonoBehaviour
             HardDrop();
         }
 
-        if(Time.time >= stepTime)
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            board.HoladChange();
+        }
+
+        if (Time.time >= stepTime)
         {
             Step();
         }
@@ -130,7 +136,6 @@ public class Piece : MonoBehaviour
         //이동할 수 있는 자리인지 확인 후 이동
         if (valid)
         {
-            print("test");
             position = newPosition;
             lockTime = 0;
         }
