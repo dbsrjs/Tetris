@@ -6,7 +6,7 @@ public class Board : MonoBehaviour
     public Tilemap tilemap { get; private set; }
     public Piece activePiece { get; private set; }
     public Piece holdPiece { get; private set; }
-    private bool canHold = true; // 한 턴에 한 번만 가능
+    public Piece tempPiece { get; private set; }
 
     public TetrominoData[] tetrominoes;
     public Vector3Int spawnPosition;        //스폰 위치
@@ -49,6 +49,21 @@ public class Board : MonoBehaviour
 
         //생성할 수 있는 위치인지 체크
         if(IsValidPosition(activePiece, spawnPosition))
+        {
+            Set(activePiece);
+        }
+        else
+        {
+            GameOver();
+        }
+    }
+
+    public void SpawnPiece(Piece piece)
+    {
+        activePiece.Initialize(this, spawnPosition, holdPiece.data);
+
+        //생성할 수 있는 위치인지 체크
+        if (IsValidPosition(activePiece, spawnPosition))
         {
             Set(activePiece);
         }
@@ -185,17 +200,20 @@ public class Board : MonoBehaviour
 
     public void HoladChange()
     {
+        print(holdPiece);
         if (holdPiece == null) // 홀드가 비어있다면, 현재 블록을 홀드하고 새 블록을 소환
         {
-            holdPiece = new Piece(); // 새로운 객체 생성 (단순 참조가 아닌 독립적인 복사본)
-            holdPiece.Initialize(this, spawnPosition, activePiece.data); // 데이터 복사
-
+            holdPiece = activePiece; // 새로운 객체 생성 (단순 참조가 아닌 독립적인 복사본)
+            print(holdPiece);
             Clear(activePiece); // 기존 블록 지우기
             SpawnPiece(); // 새로운 블록 생성
         }
         else
         {
-            
+            tempPiece = activePiece;
+            Clear(activePiece);
+            SpawnPiece(holdPiece);
+            holdPiece = tempPiece;
         }
     }
 }
